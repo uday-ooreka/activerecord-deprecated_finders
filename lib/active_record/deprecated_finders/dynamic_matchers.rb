@@ -60,9 +60,24 @@ module ActiveRecord
 
     class FindAllBy < Method
       Method.matchers << self
-      include Finder
       include DeprecatedFinder
       include DeprecationWarning
+
+      def body
+        result
+      end
+
+      # The parameters in the signature may have reserved Ruby words, in order
+      # to prevent errors, we start each param name with `_`.
+      def signature
+        attribute_names.map { |name| "_#{name}" }.join(', ')
+      end
+
+      # Given that the parameters starts with `_`, the finder needs to use the
+      # same parameter name.
+      def attributes_hash
+        "{" + attribute_names.map { |name| ":#{name} => _#{name}" }.join(',') + "}"
+      end
 
       def self.prefix
         "find_all_by"
@@ -73,7 +88,7 @@ module ActiveRecord
       end
 
       def result
-        "#{super}.to_a"
+        "#{finder}(#{attributes_hash}).to_a"
       end
 
       def deprecation_alternative

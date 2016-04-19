@@ -12,6 +12,7 @@ gemfile:
   - gemfiles/Gemfile-4-0-stable
   - gemfiles/Gemfile-4-1-stable
   - gemfiles/Gemfile-4-2-stable
+  - gemfiles/Gemfile-5-0
   - Gemfile
 notifications:
   email: false
