@@ -35,7 +35,7 @@ module ActiveRecord::Associations::Builder
     DEPRECATED_OPTIONS = [:readonly, :order, :limit, :group, :having,
                           :offset, :select, :uniq, :include, :conditions]
 
-    self.valid_options += [:select, :conditions, :include, :readonly]
+    self.valid_options [:select, :conditions, :include, :readonly]
 
     def initialize_with_deprecated_options(model, name, scope, options)
       options            = scope if scope.is_a?(Hash)
@@ -71,7 +71,8 @@ module ActiveRecord::Associations::Builder
       initialize_without_deprecated_options(model, name, scope, options)
     end
 
-    alias_method_chain :initialize, :deprecated_options
+    alias_method :initialize_without_deprecated_options, :initialize
+    alias_method :initialize, :initialize_with_deprecated_options
   end
 
   class CollectionAssociation

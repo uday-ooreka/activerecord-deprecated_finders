@@ -98,7 +98,7 @@ module ActiveRecord
 
     class FindLastBy < Method
       Method.matchers << self
-      include Finder
+      # include Finder
       include DeprecatedFinder
       include DeprecationWarning
 
@@ -121,7 +121,7 @@ module ActiveRecord
 
     class ScopedBy < Method
       Method.matchers << self
-      include Finder
+      # include Finder
       include DeprecationWarning
 
       def self.prefix

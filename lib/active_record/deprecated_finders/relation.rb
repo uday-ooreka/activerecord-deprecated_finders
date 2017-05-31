@@ -78,10 +78,9 @@ module ActiveRecord
             "a scope and then call calculate on it instead.", caller
           )
 
-          apply_finder_options(options.except(:distinct), true)
-            .calculate(operation, column_name, options.slice(:distinct))
+          apply_finder_options(options.except(:distinct), true).calculate(operation, column_name)
         else
-          super
+          super(operation, column_name)
         end
       end
 
@@ -170,6 +169,8 @@ module ActiveRecord
     end
 
     include DeprecatedMethods
-    alias_method_chain :update_all, :deprecated_options
+
+    alias_method :update_all_without_deprecated_options, :update_all
+    alias_method :update_all, :update_all_with_deprecated_options
   end
 end
