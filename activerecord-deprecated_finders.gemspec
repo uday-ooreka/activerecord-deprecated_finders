@@ -17,6 +17,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_development_dependency 'minitest',     '>= 3'
-  gem.add_development_dependency 'activerecord', '~> 6.0.3'
-  gem.add_development_dependency 'sqlite3',      '~> 1.3'
+  gem.add_development_dependency 'activerecord', '>= 6'
+  gem.add_development_dependency 'sqlite3',      '~> 1.4'
 end
